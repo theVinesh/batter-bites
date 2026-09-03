@@ -14,7 +14,7 @@ export default function CatalogContent() {
     let cancelled = false;
     async function fetchData() {
       try {
-        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://pricelist.batterbites.workers.dev';
+        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://api.batterbites.workers.dev';
         const response = await fetch(`${apiBase}/catalog`, { next: { revalidate: 3600 } });
         if (!response.ok) {
           throw new Error(`Failed to fetch catalog data: ${response.status}`);

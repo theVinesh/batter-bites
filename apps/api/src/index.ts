@@ -1,110 +1,182 @@
 /**
  * Batter Bites API - Cloudflare Worker
  *
- * This worker implements API endpoints for the Batter Bites application.
- *
  * Available endpoints:
- * - GET /catalog: Returns a product catalog with sample items
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
+ * - GET /catalog: Returns full product catalog, fee structure, and policies
+ * - GET /product/:id: Returns a single product by ID
  */
 
-/**
- * Product interface defining the structure of catalog items
- */
-interface Product {
+export interface ProductVariant {
+  weight: string;
+  price: number;
+}
+
+export interface Product {
   id: string;
   name: string;
   description: string;
   price: number;
-  category: string;
+  category: "Breakfast" | "Specialty" | "Accompaniments";
+  unit?: string;
+  minOrder?: string;
+  ingredients?: string[];
+  variants?: ProductVariant[];
   imageUrl?: string;
 }
 
-interface CatalogResponse {
-  items: Product[];
+export interface CatalogFees {
+  delivery: number;
+  cancellation: number;
+  currency: string;
 }
 
+export interface CatalogPolicies {
+  minBatterOrder: string;
+}
 
-/**
- * Sample product catalog data
- */
-const productCatalog: Product[] = [
+export interface CatalogResponse {
+  items: Product[];
+  fees: CatalogFees;
+  policies: CatalogPolicies;
+}
+
+export const fees: CatalogFees = {
+  delivery: 1.00,
+  cancellation: 1.00,
+  currency: "EUR"
+};
+
+export const policies: CatalogPolicies = {
+  minBatterOrder: "1 kg"
+};
+
+export const productCatalog: Product[] = [
   {
     id: "p001",
     name: "Idly/Dosa Batter",
-    description: "Classic batter made with rice and urid dal. Perfect for making fluffy idlies and tasty dosas.",
-    price: 5.00,
+    description: "Classic fermented batter made with rice and urad dal. Perfect for making fluffy idlies and golden dosas.",
+    price: 5.50,
+    unit: "kg",
+    minOrder: "1 kg",
     category: "Breakfast",
     imageUrl: "https://example.com/images/classic-pancakes.jpg"
   },
   {
     id: "p002",
     name: "Crispy Dosa Batter",
-    description: "Level up your dosa game with the special crispy dosa batter. Perfect for the dosa purists!",
-    price: 6.00,
+    description: "Special recipe crafted for ultra-crispy, restaurant-style golden dosas. Perfect for dosa enthusiasts!",
+    price: 6.50,
+    unit: "kg",
+    minOrder: "1 kg",
     category: "Breakfast",
     imageUrl: "https://example.com/images/blueberry-waffles.jpg"
   },
   {
     id: "p003",
-    name: "Millet Dosa Batter",
-    description: "Packed with the goodness of millets. Healthy, yet delicious.",
-    price: 9.00,
-    category: "Breakfast",
-    imageUrl: "https://example.com/images/chocolate-chip-pancakes.jpg"
+    name: "Adai Dosa Batter",
+    description: "Hearty, protein-packed batter made from a traditional blend of wholesome dals and rice.",
+    price: 8.50,
+    unit: "kg",
+    minOrder: "1 kg",
+    category: "Specialty",
+    ingredients: [
+      "Toor Dal",
+      "Chana Dal",
+      "Urad Dal",
+      "Rice"
+    ],
+    imageUrl: "https://example.com/images/savory-crepes.jpg"
   },
   {
     id: "p004",
     name: "Pesarattu Dosa Batter",
-    description: "Bring in some variety and the goodness of green lentils. Healthy, Tastey and fun!",
-    price: 8.00,
+    description: "Nutritious and flavor-rich batter made from green moong dal. Healthy, authentic Andhra-style specialty.",
+    price: 8.50,
+    unit: "kg",
+    minOrder: "1 kg",
     category: "Specialty",
+    ingredients: [
+      "Whole Green Moong Dal",
+      "Ginger",
+      "Green Chilies",
+      "Cumin"
+    ],
     imageUrl: "https://example.com/images/banana-bread-french-toast.jpg"
   },
   {
     id: "p005",
-    name: "Adai Dosa Batter",
-    description: "Children and Adults go wild when it's Adai for breakfast. Packed with protien rich channa dal. It checks all the boxes!",
-    price: 8.00,
-    category: "Specialty",
-    imageUrl: "https://example.com/images/savory-crepes.jpg"
+    name: "Millet Batter",
+    description: "Nutrient-dense multi-millet blend. Packed with fiber and earthy flavors for healthy everyday breakfast.",
+    price: 9.50,
+    unit: "kg",
+    minOrder: "1 kg",
+    category: "Breakfast",
+    ingredients: [
+      "Pearl Millet (Bajra)",
+      "Sorghum (Jowar)",
+      "Foxtail Millet",
+      "Urad Dal"
+    ],
+    imageUrl: "https://example.com/images/chocolate-chip-pancakes.jpg"
   },
   {
     id: "p006",
-    name: "Paniyaram Batter",
-    description: "Make it spicy or make it sweet. Perfect for a quick snack.",
-    price: 8.00,
+    name: "Banana Waffle / Pancake Batter",
+    description: "Sweet and fluffy ready-to-pour banana batter. Ideal for quick weekend waffles and pancakes.",
+    price: 8.50,
+    unit: "kg",
+    minOrder: "1 kg",
     category: "Specialty",
     imageUrl: "https://example.com/images/savory-crepes.jpg"
   },
   {
     id: "p007",
-    name: "Pancake/Waffle Batter",
-    description: "Delicious banana pancakes! Awesome with maple syrup or on it's own. When you have to satisfy that sweet-tooth.",
-    price: 8.00,
+    name: "Paniyaram Batter",
+    description: "Versatile fermented batter for crispy outside, soft inside paniyarams (kuzhi paniyaram). Great spicy or sweet.",
+    price: 6.00,
+    unit: "kg",
+    minOrder: "1 kg",
     category: "Specialty",
+    imageUrl: "https://example.com/images/savory-crepes.jpg"
+  },
+  {
+    id: "p008",
+    name: "Gunpowder Chutney Podi",
+    description: "Handcrafted authentic South Indian gunpowder recipe. A fragrant, spicy blend of roasted lentils and spices for dosas and idlies.",
+    price: 2.50,
+    category: "Accompaniments",
+    variants: [
+      { weight: "100g", price: 2.50 },
+      { weight: "200g", price: 4.00 }
+    ],
+    ingredients: [
+      "Roasted Chana Dal",
+      "Urad Dal",
+      "Dry Red Chilies",
+      "Curry Leaves",
+      "Sesame Seeds",
+      "Asafoetida (Hing)",
+      "Salt"
+    ],
     imageUrl: "https://example.com/images/savory-crepes.jpg"
   }
 ];
 
 /**
  * Handler for the /catalog endpoint
- * Returns the product catalog as JSON
  */
 async function handleCatalogRequest(_request: Request): Promise<Response> {
-  // Return the product catalog with appropriate headers
   const catalogResponse: CatalogResponse = {
-    items: productCatalog
+    items: productCatalog,
+    fees,
+    policies
   };
 
   return new Response(JSON.stringify(catalogResponse), {
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*", // CORS header for cross-origin requests
-      "Cache-Control": "max-age=3600" // Cache response for 1 hour
+      "Access-Control-Allow-Origin": "*",
+      "Cache-Control": "max-age=3600"
     },
     status: 200
   });
@@ -112,7 +184,6 @@ async function handleCatalogRequest(_request: Request): Promise<Response> {
 
 /**
  * Handler for the /product/:id endpoint
- * Returns a single product by ID
  */
 async function handleProductRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -129,7 +200,6 @@ async function handleProductRequest(request: Request): Promise<Response> {
     });
   }
 
-  // Find the product by ID
   const product = productCatalog.find(p => p.id === productId);
 
   if (!product) {
@@ -155,11 +225,9 @@ async function handleProductRequest(request: Request): Promise<Response> {
 export default {
   async fetch(request: Request, _env: Env, _ctx: ExecutionContext): Promise<Response> {
     try {
-      // Parse the URL to get the pathname
       const url = new URL(request.url);
       const path = url.pathname;
 
-      // Simple router based on the request path and method
       if (request.method === "GET") {
         if (path === "/catalog") {
           return handleCatalogRequest(request);
@@ -168,7 +236,6 @@ export default {
         }
       }
 
-      // If no route matches, return a 404 Not Found response
       return new Response("Not Found", {
         status: 404,
         headers: {
@@ -176,10 +243,7 @@ export default {
         }
       });
     } catch (error) {
-      // Log the error (in a production environment, you might want to use a proper logging service)
       console.error("Error processing request:", error);
-
-      // Return a 500 Internal Server Error response
       return new Response("Internal Server Error", {
         status: 500,
         headers: {

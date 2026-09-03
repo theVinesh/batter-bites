@@ -8,7 +8,7 @@ interface ProductPageProps {
 }
 
 // Known product IDs from the API catalog for static export
-const PRODUCT_IDS = ['p001', 'p002', 'p003', 'p004', 'p005', 'p006', 'p007'];
+const PRODUCT_IDS = ['p001', 'p002', 'p003', 'p004', 'p005', 'p006', 'p007', 'p008'];
 
 // Required for static export with dynamic routes
 export async function generateStaticParams() {

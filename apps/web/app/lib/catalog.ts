@@ -36,76 +36,78 @@ export async function getProductById(id: string): Promise<CatalogItem> {
   return response.json();
 }
 
-// Ingredient data for different products
-export const getProductIngredients = (productId: string): string[] => {
+// Fallback ingredients if not returned by API
+export const getProductIngredients = (productId: string, item?: CatalogItem): string[] => {
+  if (item?.ingredients && item.ingredients.length > 0) {
+    return item.ingredients;
+  }
+
   const ingredientMap: Record<string, string[]> = {
     'p001': [
-      'Organic White Rice',
-      'Black Urid Dal (Split Black Gram)',
+      'Rice',
+      'Urad Dal (Split Black Gram)',
       'Fenugreek Seeds',
-      'Rock Salt',
-      'Filtered Water'
+      'Salt',
+      'Water'
     ],
     'p002': [
-      'Organic White Rice',
-      'Black Urid Dal (Split Black Gram)',
+      'Rice',
+      'Urad Dal (Split Black Gram)',
       'Poha (Flattened Rice)',
       'Fenugreek Seeds',
-      'Rock Salt',
-      'Filtered Water'
+      'Salt',
+      'Water'
     ],
     'p003': [
-      'Finger Millet (Ragi)',
-      'Pearl Millet (Bajra)',
-      'Black Urid Dal (Split Black Gram)',
-      'Fenugreek Seeds',
-      'Rock Salt',
-      'Filtered Water'
+      'Toor Dal',
+      'Chana Dal',
+      'Urad Dal',
+      'Rice'
     ],
     'p004': [
-      'Green Moong Dal (Whole Green Gram)',
-      'Organic White Rice',
+      'Whole Green Moong Dal',
       'Ginger',
       'Green Chilies',
-      'Cumin Seeds',
-      'Rock Salt',
-      'Filtered Water'
+      'Cumin'
     ],
     'p005': [
-      'Channa Dal (Bengal Gram)',
-      'Toor Dal (Pigeon Pea)',
-      'Organic White Rice',
-      'Black Urid Dal',
-      'Fenugreek Seeds',
-      'Rock Salt',
-      'Filtered Water'
+      'Pearl Millet (Bajra)',
+      'Sorghum (Jowar)',
+      'Foxtail Millet',
+      'Urad Dal'
     ],
     'p006': [
-      'Organic White Rice',
-      'Black Urid Dal (Split Black Gram)',
-      'Fenugreek Seeds',
-      'Ginger',
-      'Green Chilies',
-      'Rock Salt',
-      'Filtered Water'
-    ],
-    'p007': [
-      'All-Purpose Flour',
-      'Organic Eggs',
-      'Whole Milk',
+      'Banana Puree',
+      'Flour',
+      'Milk',
       'Organic Sugar',
       'Baking Powder',
-      'Vanilla Extract',
       'Butter',
+      'Salt'
+    ],
+    'p007': [
+      'Rice',
+      'Urad Dal',
+      'Fenugreek Seeds',
+      'Salt',
+      'Water'
+    ],
+    'p008': [
+      'Roasted Chana Dal',
+      'Urad Dal',
+      'Dry Red Chilies',
+      'Curry Leaves',
+      'Sesame Seeds',
+      'Asafoetida (Hing)',
       'Salt'
     ]
   };
 
   return ingredientMap[productId] || [
-    'Premium Quality Ingredients',
-    'Organic Rice',
     'Fresh Lentils',
-    'Natural Spices',
+    'Natural Grains',
+    'Pure Spices',
+    'Salt',
     'Filtered Water'
   ];
 };
