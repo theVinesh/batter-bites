@@ -3,7 +3,7 @@
  * from apps/web/out as static assets.
  */
 export default {
-  async fetch(request: Request, env: { ASSETS: Fetcher }, _ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: any, _ctx: any): Promise<Response> {
     const url = new URL(request.url);
 
     // Let wrangler's static-asset handler serve the file.
@@ -19,4 +19,4 @@ export default {
 
     return response;
   },
-} satisfies ExportedHandler<{ ASSETS: Fetcher }>;
+};
