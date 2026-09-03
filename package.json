@@ -6,6 +6,7 @@
     "dev:web": "pnpm --filter batter-bites-web dev",
     "dev:api": "pnpm --filter batter-bites-api dev",
     "build:web": "pnpm --filter batter-bites-web build",
+    "deploy:web": "pnpm --filter batter-bites-web deploy",
     "test:api": "pnpm --filter batter-bites-api test",
     "deploy:api": "pnpm --filter batter-bites-api deploy",
     "format": "prettier --write ."
