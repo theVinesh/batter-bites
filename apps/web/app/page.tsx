@@ -1,37 +1,16 @@
-import { Suspense } from 'react';
 import Image from 'next/image';
-import CardCarousel from './components/CardCarousel';
-import LoadingState from './components/LoadingState';
-import ErrorState from './components/ErrorState';
+import CatalogContent from './CatalogContent';
 import TestimonialCarousel, { dummyTestimonials } from './components/TestimonialCarousel';
 import NavigationBar from './components/NavigationBar';
 import WhatsAppCTA from './components/WhatsAppCTA';
-import { getCatalogData } from './lib/catalog';
-
-async function CatalogContent() {
-  try {
-    const data = await getCatalogData();
-
-    return (
-      <section id="menu" className="py-8 sm:py-10 md:py-12 lg:py-16">
-        <div className="mb-6 sm:mb-7 md:mb-8 text-center">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-batter-brown mb-2">Our Menu</h2>
-          <div className="h-0.5 w-12 sm:w-14 md:w-16 bg-batter-gold mx-auto"></div>
-        </div>
-        <CardCarousel items={data.items} />
-      </section>
-    );
-  } catch (error) {
-    return <ErrorState error={error as Error} reset={() => window.location.reload()} />;
-  }
-}
+import LoadingState from './components/LoadingState';
 
 export default function Home() {
   return (
-      <main className="flex min-h-screen flex-col items-center justify-center p-3 sm:p-4 md:p-8 bg-gradient-to-b from-batter-light to-white">
-        <NavigationBar />
-        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-          <section id="home" className="text-center mb-8 sm:mb-10 md:mb-12">
+    <main className="flex min-h-screen flex-col items-center justify-center p-3 sm:p-4 md:p-8 bg-gradient-to-b from-batter-light to-white">
+      <NavigationBar />
+      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        <section id="home" className="text-center mb-8 sm:mb-10 md:mb-12">
           <div className="flex justify-center mb-4 sm:mb-5 md:mb-6">
             <Image
               src="/logos/batter-bites-logo.png"
@@ -51,9 +30,7 @@ export default function Home() {
         </section>
 
         <WhatsAppCTA />
-        <Suspense fallback={<LoadingState />}>
-          <CatalogContent />
-        </Suspense>
+        <CatalogContent />
 
         <section id="testimonials" className="text-center mb-8 sm:mb-10 md:mb-12">
           <div className="mb-6 sm:mb-7 md:mb-8 text-center">
