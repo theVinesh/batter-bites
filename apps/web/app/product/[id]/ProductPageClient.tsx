@@ -157,7 +157,7 @@ export default function ProductPageClient({ id, initialProduct = null, initialIn
                               : 'bg-batter-cream/50 text-batter-brown hover:bg-batter-cream border border-batter-cream'
                           }`}
                         >
-                          {v.weight} — €{v.price.toFixed(2)}
+                          {v.weight}
                         </button>
                       ))}
                     </div>
