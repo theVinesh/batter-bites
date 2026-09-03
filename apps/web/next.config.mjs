@@ -9,4 +9,4 @@ const nextConfig = {
   // next/font will still work for static export via CSS
 };
 
-module.exports = nextConfig;
+export default nextConfig;
