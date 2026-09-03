@@ -1,0 +1,16 @@
+{
+  "name": "batter-bites",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:web": "pnpm --filter batter-bites-web dev",
+    "dev:api": "pnpm --filter batter-bites-api dev",
+    "build:web": "pnpm --filter batter-bites-web build",
+    "test:api": "pnpm --filter batter-bites-api test",
+    "deploy:api": "pnpm --filter batter-bites-api deploy",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.5.0"
+  }
+}
