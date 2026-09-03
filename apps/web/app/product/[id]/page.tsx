@@ -145,6 +145,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
   );
 }
 
+// Known product IDs from the API catalog for static export
+const PRODUCT_IDS = ['p001', 'p002', 'p003', 'p004', 'p005', 'p006', 'p007'];
+
+// Required for static export with dynamic routes
+export async function generateStaticParams() {
+  return PRODUCT_IDS.map((id) => ({ id }));
+}
+
 // Generate metadata for SEO
 export async function generateMetadata({ params }: ProductPageProps) {
   const { id } = await params;
