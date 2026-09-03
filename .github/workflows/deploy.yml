@@ -69,7 +69,6 @@ jobs:
         run: pnpm --filter batter-bites-web build
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-      - name: "Create Pages project (idempotent)"
-        run: pnpm exec wrangler pages project create site --production-branch main || true
-      - name: "Deploy to Cloudflare Pages (project site)"
-        run: pnpm exec wrangler pages deploy apps/web/out --project-name=site
+      - name: Deploy Site Worker
+        run: pnpm exec wrangler deploy
+        working-directory: apps/web
