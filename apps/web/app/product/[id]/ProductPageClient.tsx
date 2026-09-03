@@ -191,7 +191,7 @@ export default function ProductPageClient({ id, initialProduct = null, initialIn
                 rel="noopener noreferrer"
                 className="bg-green-600 hover:bg-green-700 text-white font-semibold text-base sm:text-lg px-6 py-2.5 rounded-full shadow transition-all duration-200"
               >
-                Order via WhatsApp
+                Join WhatsApp Group
               </a>
               <span className="text-xs text-batter-brown/70">
                 Delivery: €1.00 • Cancellation charge: €1.00
