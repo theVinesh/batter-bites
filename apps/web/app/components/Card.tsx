@@ -43,11 +43,6 @@ export default function Card({ item }: CardProps) {
         <span className={`text-lg sm:text-xl md:text-2xl font-bold px-2 text-center ${textColors[colorIndex]}`}>
           {item.name}
         </span>
-        {item.minOrder && (
-          <span className="mt-2 text-xs bg-white/90 text-batter-brown font-semibold px-2.5 py-0.5 rounded-full shadow-sm">
-            Min order: {item.minOrder}
-          </span>
-        )}
       </div>
 
       <div className="p-3 sm:p-4">

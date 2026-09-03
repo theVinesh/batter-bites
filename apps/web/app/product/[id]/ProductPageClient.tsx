@@ -128,11 +128,6 @@ export default function ProductPageClient({ id, initialProduct = null, initialIn
             <span className={`text-3xl sm:text-4xl md:text-5xl font-bold px-6 text-center ${textColors[colorIndex]}`}>
               {product.name}
             </span>
-            {product.minOrder && (
-              <span className="mt-4 text-xs sm:text-sm bg-white/95 text-batter-brown font-semibold px-3 py-1 rounded-full shadow">
-                Minimum order: {product.minOrder}
-              </span>
-            )}
           </div>
           
           <div className="p-6 sm:p-8">
@@ -184,18 +179,24 @@ export default function ProductPageClient({ id, initialProduct = null, initialIn
               </div>
             </div>
 
-            <div className="pt-4 border-t border-batter-cream/60 flex flex-wrap gap-4 items-center justify-between">
-              <a
-                href="https://chat.whatsapp.com/C2AIJysYM5SIE7OIhZCkm7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold text-base sm:text-lg px-6 py-2.5 rounded-full shadow transition-all duration-200"
-              >
-                Join WhatsApp Group
-              </a>
-              <span className="text-xs text-batter-brown/70">
-                Delivery: €1.00 • Cancellation charge: €1.00
-              </span>
+            <div className="pt-4 border-t border-batter-cream/60 flex flex-col gap-3">
+              <div className="flex flex-wrap gap-4 items-center justify-between">
+                <a
+                  href="https://chat.whatsapp.com/C2AIJysYM5SIE7OIhZCkm7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold text-base sm:text-lg px-6 py-2.5 rounded-full shadow transition-all duration-200"
+                >
+                  Join WhatsApp Group
+                </a>
+              </div>
+              <div className="text-xs text-batter-brown/75 flex flex-wrap gap-x-3 gap-y-1">
+                {product.minOrder && (
+                  <span>• Minimum order: <b>{product.minOrder}</b></span>
+                )}
+                <span>• Delivery: <b>€1.00</b></span>
+                <span>• Cancellation charge: <b>€1.00</b></span>
+              </div>
             </div>
           </div>
         </div>
