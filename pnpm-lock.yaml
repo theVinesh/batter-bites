@@ -11,6 +11,9 @@ importers:
       prettier:
         specifier: ^3.5.0
         version: 3.9.6
+      wrangler:
+        specifier: ^4.15.2
+        version: 4.128.0
 
   apps/api:
     devDependencies:
