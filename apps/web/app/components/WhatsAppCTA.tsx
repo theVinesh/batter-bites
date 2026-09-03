@@ -12,18 +12,9 @@ export default function WhatsAppCTA() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-batter-brown mb-3 text-center">
           Join Batter Bites on WhatsApp!
         </h2>
-        <p className="text-batter-brown/90 text-base sm:text-lg md:text-xl mb-4 text-center max-w-md">
+        <p className="text-batter-brown/90 text-base sm:text-lg md:text-xl mb-6 text-center max-w-md">
           Join our WhatsApp community for batch drops, weekly specials, and ordering announcements.
         </p>
-
-        <div className="bg-white/80 rounded-lg p-3 sm:p-4 mb-6 text-xs sm:text-sm text-batter-brown border border-batter-brown/20 text-center w-full max-w-md">
-          <p className="font-semibold text-batter-brown mb-1">📋 Ordering & Policy Info</p>
-          <div className="grid grid-cols-2 gap-2 text-batter-brown/90 text-xs">
-            <div>• Min batter order: <b>1 kg</b></div>
-            <div>• Delivery fee: <b>€1.00</b></div>
-            <div className="col-span-2">• Order cancellation fee: <b>€1.00</b></div>
-          </div>
-        </div>
 
         <a
           href={WHATSAPP_LINK}
