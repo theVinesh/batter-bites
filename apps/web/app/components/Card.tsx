@@ -49,24 +49,9 @@ export default function Card({ item }: CardProps) {
         <div className="flex justify-between items-start">
           <h3 className="text-base sm:text-lg font-semibold text-batter-brown mb-1 line-clamp-1">{item.name}</h3>
         </div>
-        <p className="text-batter-brown/80 text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2">{item.description}</p>
+        <p className="text-batter-brown/80 text-xs sm:text-sm mb-3 line-clamp-2">{item.description}</p>
 
-        {item.ingredients && item.ingredients.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-3">
-            {item.ingredients.slice(0, 3).map((ing, idx) => (
-              <span key={idx} className="text-[10px] bg-batter-cream/60 text-batter-brown px-1.5 py-0.5 rounded">
-                {ing}
-              </span>
-            ))}
-            {item.ingredients.length > 3 && (
-              <span className="text-[10px] text-batter-brown/60 px-1 py-0.5">
-                +{item.ingredients.length - 3} more
-              </span>
-            )}
-          </div>
-        )}
-
-        <div className="flex justify-between items-center pt-1 border-t border-batter-cream/50">
+        <div className="flex justify-between items-center pt-2 border-t border-batter-cream/50">
           <span className="text-base sm:text-lg font-bold text-batter-copper">{priceLabel}</span>
           <span className="text-xs text-batter-gold hover:underline font-medium">View details &rarr;</span>
         </div>
