@@ -1,6 +1,6 @@
 import { CatalogItem, CatalogResponse } from '../types/catalog';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://batterbites.vineshraju.workers.dev';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://pricelist.batterbites.workers.dev';
 
 export async function getCatalogData(): Promise<CatalogResponse> {
   try {

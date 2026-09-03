@@ -22,7 +22,7 @@ export default function ProductPageClient({ id, initialProduct = null, initialIn
     let cancelled = false;
     async function fetchProduct() {
       try {
-        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://batterbites.vineshraju.workers.dev';
+        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://pricelist.batterbites.workers.dev';
         const response = await fetch(`${apiBase}/product/${id}`);
         if (!response.ok) {
           if (response.status === 404) {

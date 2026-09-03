@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import CardCarousel from './CardCarousel';
-import LoadingState from './LoadingState';
-import ErrorState from './ErrorState';
-import { CatalogResponse } from '../types/catalog';
+import CardCarousel from './components/CardCarousel';
+import LoadingState from './components/LoadingState';
+import ErrorState from './components/ErrorState';
+import { CatalogResponse } from './types/catalog';
 
 export default function CatalogContent() {
   const [data, setData] = useState<CatalogResponse | null>(null);
@@ -14,7 +14,7 @@ export default function CatalogContent() {
     let cancelled = false;
     async function fetchData() {
       try {
-        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://batterbites.vineshraju.workers.dev';
+        const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://pricelist.batterbites.workers.dev';
         const response = await fetch(`${apiBase}/catalog`, { next: { revalidate: 3600 } });
         if (!response.ok) {
           throw new Error(`Failed to fetch catalog data: ${response.status}`);
